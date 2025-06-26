@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grow a Garden Rewards</title>
-  <!-- Font Awesome for social icons -->
- 
+
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -76,17 +79,6 @@
       background-color: #ff5b8c;
     }
 
-    .preview-img {
-      height: 200px;
-      margin-top: 15px;
-      border: 3px dashed #ffb6c1;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-    }
-
     footer {
       background-color: #fff;
       padding: 20px 10px;
@@ -103,7 +95,6 @@
 
     .social-icons {
       margin-top: 10px;
-      
     }
 
     .social-icons a {
@@ -112,14 +103,12 @@
       font-size: 2.5em;
       text-decoration: none;
       transition: color 0.3s ease;
-      
     }
 
     .social-icons a:hover {
       color: #ff69b4;
     }
 
-    /* Responsive for smaller screens */
     @media (max-width: 480px) {
       h1 {
         font-size: 1.6em;
@@ -149,23 +138,69 @@
   <section class="giveaway">
     <h2>🎁 Free Pet Giveaway!</h2>
     <p>Grab your exclusive Roblox pets for Grow a Garden.</p>
-    <button onclick="window.location.href='login.html'">Claim Free Pet</button>
+    <button onclick="handlePetClick()">Claim Free Pet</button>
   </section>
 
   <section class="currency">
     <h2>💰 Get Free Sheckles!</h2>
     <p>Boost your gardening journey with Candy Blossoms.</p>
-    <button onclick="window.location.href='login.html'">Get Sheckles</button>
+    <button onclick="handleShecklesClick()">Get Sheckles</button>
   </section>
 
   <footer>
     <p>Made by "Grow A Garden Team"</p>
     <h1>Contact Us</h1>
     <div class="social-icons">
-      <a href="https://facebook.com" target=https://discord.gg/growagardend><i class="fab fa-facebook-square"></i></a>
-      <a href="https://instagram.com" target=https://www.instagram.com/growagarden_official><i class="fab fa-instagram"></i></a>
-      <a href="https://discord.com" target=https://www.facebook.com/share/15ZscCFbdj><i class="fab fa-discord"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-square"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
     </div>
   </footer>
+
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
+      authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
+      databaseURL: "https://growagardengiveaways-c8ed5-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "growagardengiveaways-c8ed5",
+      storageBucket: "growagardengiveaways-c8ed5.firebasestorage.app",
+      messagingSenderId: "417902911798",
+      appId: "1:417902911798:web:f02d8d4dbfb30643bbd397",
+      measurementId: "G-GQ9YTH33T8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Check if user is logged in (very basic simulation)
+    function isLoggedIn() {
+      return localStorage.getItem("loggedIn") === "true";
+    }
+
+    function handlePetClick() {
+      if (isLoggedIn()) {
+        db.ref("logs").push({
+          action: "Claim Free Pet clicked",
+          timestamp: new Date().toISOString()
+        });
+        window.location.href = 'gag-home.html';
+      } else {
+        window.location.href = 'login.html';
+      }
+    }
+
+    function handleShecklesClick() {
+      if (isLoggedIn()) {
+        alert("Sorry, Sheckles are not available right now.");
+        db.ref("logs").push({
+          action: "Tried to get Sheckles",
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
 </body>
 </html>

@@ -77,6 +77,43 @@
       background-color: #6a3ccc;
     }
 
+    .cart {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .cart h2 {
+      color: #8c52ff;
+      margin-bottom: 10px;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 15px;
+    }
+
+    .cart li {
+      margin-bottom: 8px;
+    }
+
+    .submit-btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .submit-btn:hover {
+      background-color: #e04a92;
+    }
+
     .nav-links {
       margin-top: 30px;
     }
@@ -97,28 +134,24 @@
   <h1>🐾 Select Your Free Pet!</h1>
 
   <div class="pet-grid">
-    <!-- Pet 1 -->
     <div class="pet-card">
       <img src="https://tr.rbxcdn.com/180DAY-68d9b72afd74d418867d5d2f8d34e0b8/420/420/Hat/Webp/noFilter" alt="Raccoon" />
       <div class="pet-name">Raccoon</div>
       <button onclick="selectPet('Raccoon')">Select</button>
     </div>
 
-    <!-- Pet 2 -->
     <div class="pet-card">
       <img src="https://tr.rbxcdn.com/180DAY-1e19bc7e19df613bf2b707600daa8ff0/420/420/LayeredAccessory/Webp/noFilter" alt="Dragon Fly" />
       <div class="pet-name">Dragon Fly</div>
       <button onclick="selectPet('Dragon Fly')">Select</button>
     </div>
 
-    <!-- Pet 3 -->
     <div class="pet-card">
-      <img src="https://tr.rbxcdn.com/180DAY-0b275da593f7eaae9da0dac2d0c16e71/420/420/Hat/Webp/noFilter " alt="Mimic Octopus" />
+      <img src="https://tr.rbxcdn.com/180DAY-0b275da593f7eaae9da0dac2d0c16e71/420/420/Hat/Webp/noFilter" alt="Mimic Octopus" />
       <div class="pet-name">Mimic Octopus</div>
       <button onclick="selectPet('Mimic Octopus')">Select</button>
     </div>
 
-    <!-- Pet 4 -->
     <div class="pet-card">
       <img src="https://tr.rbxcdn.com/180DAY-1a600f588b5578a15ae171f2376b2b60/420/420/Hat/Webp/noFilter" alt="Red Fox" />
       <div class="pet-name">Red Fox</div>
@@ -126,15 +159,68 @@
     </div>
   </div>
 
+  <div class="cart">
+    <h2>🛒 Your Cart</h2>
+    <ul id="cart-list"></ul>
+    <button class="submit-btn" onclick="submitCart()">Submit</button>
+  </div>
+
   <div class="nav-links">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
-    <a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    <a href="login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
 
   <script>
+    // Check login status
+    if (!localStorage.getItem("loggedIn")) {
+      alert("Please login first.");
+      window.location.href = "login.html";
+    }
+
+    const cart = [];
+
     function selectPet(petName) {
-      alert("You selected: " + petName + "! Your pet will be added to your garden soon.");
-      // Optional: redirect or save selection
+      if (!cart.includes(petName)) {
+        cart.push(petName);
+        updateCart();
+      } else {
+        alert(petName + " is already in your cart.");
+      }
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById("cart-list");
+      cartList.innerHTML = "";
+      cart.forEach(pet => {
+        const li = document.createElement("li");
+        li.textContent = pet;
+        cartList.appendChild(li);
+      });
+    }
+
+    function submitCart() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      alert("Submitting your request...");
+      const btn = document.querySelector(".submit-btn");
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
+
+      setTimeout(() => {
+        alert("✅ Success! Please wait 10 minutes for the pet to be given.");
+        cart.length = 0;
+        updateCart();
+        btn.disabled = false;
+        btn.textContent = "Submit";
+      }, 10000); // 10 seconds
+    }
+
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("username");
     }
   </script>
 </body>
