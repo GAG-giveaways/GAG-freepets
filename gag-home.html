@@ -4,133 +4,219 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Select Your Free Pet</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    crossorigin="anonymous"
-  />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Comic Sans MS', sans-serif;
-    }
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+ <style>body, html {
+  height: 100%;
+  overflow-x: hidden;
+}
 
-    body {
-      bbackground: linear-gradient(to top, #7acc55 0%, #a6e67e 40%, #c5f1ff 100%);
-      color: #333;
-      padding: 20px;
-      text-align: center;
-      min-height: 100vh;
-    }
+.background {
+  background: url('https://noping.com/_next/image?url=https%3A%2F%2Fblogadmin.noping.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fgrowagarden-1747688567733.jpg&w=1920&q=75') no-repeat center center fixed;
+  background-size: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  filter: blur(10px);
+  z-index: -1;
+}
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #8c52ff;
-    }
+body {
+  color: #333;
+  padding: 20px;
+  text-align: center;
+  min-height: 100vh;
+}
 
-    .pet-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin: 20px 0;
-    }
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #8c52ff;
+}
 
-    .pet-card {
-      background: #fff;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease;
-    }
+.pet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
 
-    .pet-card:hover {
-      transform: scale(1.03);
-    }
+.pet-card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
 
-    .pet-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+.pet-card:hover {
+  transform: scale(1.03);
+}
 
-    .pet-name {
-      margin: 10px 0;
-      font-weight: bold;
-      color: #ff69b4;
-    }
+.pet-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
 
-    .pet-card button {
-      background-color: #8c52ff;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
+.pet-name {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #ff69b4;
+  font-size: 2emw;
+}
 
-    .pet-card button:hover {
-      background-color: #6a3ccc;
-    }
+.pet-card button {
+  background-color: #8c52ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
 
-    .cart {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+.pet-card button:hover {
+  background-color: #6a3ccc;
+}
 
-    .cart h2 {
-      color: #8c52ff;
-      margin-bottom: 10px;
-    }
+.cart {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    .cart ul {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 15px;
-    }
+.cart h2 {
+  color: #8c52ff;
+  margin-bottom: 10px;
+}
 
-    .cart li {
-      margin-bottom: 8px;
-    }
+.cart ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 15px;
+}
 
-    .submit-btn {
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1em;
-    }
+.cart li {
+  margin-bottom: 8px;
+}
 
-    .submit-btn:hover {
-      background-color: #e04a92;
-    }
+.submit-btn {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+}
 
-    .nav-links {
-      margin-top: 30px;
-    }
+.submit-btn:hover {
+  background-color: #e04a92;
+}
 
-    .nav-links a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #8c52ff;
-      font-weight: bold;
-    }
+.nav-links {
+  margin-top: 30px;
+}
 
-    .nav-links a:hover {
-      text-decoration: underline;
-    }
+.nav-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #8c52ff;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+.reviews-section {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.review-carousel {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  padding: 10px 0;
+  animation: scrollReviews 40s linear infinite;
+  width: 100%;
+}
+
+.review-card {
+  flex: 0 0 auto;
+  min-width: 250px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: #555;
+  font-style: italic;
+}
+
+.review-card span {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+  font-size: 0.9em;
+}
+
+@keyframes scrollReviews {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.review-input {
+  margin-top: 25px;
+}
+
+.review-input input {
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  font-size: 1em;
+  outline: none;
+}
+
+.review-input button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #8c52ff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.review-input button:hover {
+  background-color: #6f3be9;
+}
+
+
+
   </style>
 </head>
 <body>
+  <div class="background"></div>
+
   <h1>🐾 Select Your Free Pet!</h1>
 
   <div class="pet-grid">
@@ -165,63 +251,105 @@
     <button class="submit-btn" onclick="submitCart()">Submit</button>
   </div>
 
+  
+  <section class="reviews-section">
+<h2>🌟 Players reviews</h2>
+<div class="review-carousel">
+  <div style="display: flex;">
+      
+  <div class="review-carousel" id="reviewCarousel">
+    <div class="review-card">“thank you sa FOX!”<br><span>- kalmado</span></div>
+    <div class="review-card">“I got my Raccoon pet instantly!”<br><span>- PinkyPlays</span></div>
+    <div class="review-card">“So cute and legit. Can’t wait for more!”<br><span>- FoxMaster88</span></div>
+    <div class="review-card">“Very fast and easy. Love it!”<br><span>- GreenSproutz</span></div>
+    <div class="review-card">“it takes days for me to receive!”<br><span>- shizu</span></div>
+    <div class="review-card">“kala ko scam HAHAHAHA!”<br><span>- berus</span></div>
+    <div class="review-card">“legit nga!”<br><span>- yumikoo</span></div>
+  </div>
+  
+
+  </div>
+  </div>
+  <div class="review-input">
+    <input type="text" id="reviewText" placeholder="Write your review here..." />
+    <button onclick="submitReview()">Submit Review</button>
+  </div>
+  </section>
+
   <div class="nav-links">
     <a href="index.html"><i class="fas fa-home"></i> Home</a>
     <a href="login.html" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
   </div>
 
+
+  
+
+
   <script>
-    // Check login status
-    if (!localStorage.getItem("loggedIn")) {
-      alert("Please login first.");
-      window.location.href = "login.html";
+  // Check login status
+  if (!localStorage.getItem("loggedIn")) {
+    alert("Please login first.");
+    window.location.href = "login.html";
+  }
+
+  const cart = [];
+
+  function selectPet(petName) {
+    if (!cart.includes(petName)) {
+      cart.push(petName);
+      updateCart();
+    } else {
+      alert(petName + " is already in your cart.");
+    }
+  }
+
+  function updateCart() {
+    const cartList = document.getElementById("cart-list");
+    cartList.innerHTML = "";
+    cart.forEach(pet => {
+      const li = document.createElement("li");
+      li.textContent = pet;
+      cartList.appendChild(li);
+    });
+  }
+
+  function submitCart() {
+    if (cart.length === 0) {
+      alert("Your cart is empty!");
+      return;
     }
 
-    const cart = [];
+    alert("Submitting your request...");
+    const btn = document.querySelector(".submit-btn");
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
 
-    function selectPet(petName) {
-      if (!cart.includes(petName)) {
-        cart.push(petName);
-        updateCart();
-      } else {
-        alert(petName + " is already in your cart.");
-      }
+    setTimeout(() => {
+      alert("✅ Success! Plesase wait 30 minutes for the pet to be given.");
+      cart.length = 0;
+      updateCart();
+      btn.disabled = false;
+      btn.textContent = "Submit";
+    }, 10000);
+  }
+
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("username");
+  }
+
+  // 📝 Submit review
+  function submitReview() {
+    const input = document.getElementById("reviewText");
+    const review = input.value.trim();
+    if (review === "") {
+      alert("Please write something first.");
+      return;
     }
+    alert("🔍 Checking your review...");
+    input.value = ""; // clear the text field
+  }
+</script>
 
-    function updateCart() {
-      const cartList = document.getElementById("cart-list");
-      cartList.innerHTML = "";
-      cart.forEach(pet => {
-        const li = document.createElement("li");
-        li.textContent = pet;
-        cartList.appendChild(li);
-      });
-    }
-
-    function submitCart() {
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-
-      alert("Submitting your request...");
-      const btn = document.querySelector(".submit-btn");
-      btn.disabled = true;
-      btn.textContent = "Submitting...";
-
-      setTimeout(() => {
-        alert("✅ Success! Please wait 10 minutes for the pet to be given.");
-        cart.length = 0;
-        updateCart();
-        btn.disabled = false;
-        btn.textContent = "Submit";
-      }, 10000); // 10 seconds
-    }
-
-    function logout() {
-      localStorage.removeItem("loggedIn");
-      localStorage.removeItem("username");
-    }
-  </script>
 </body>
 </html>
